@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/p12s/avito-advertising-http-api"
+	//"github.com/p12s/avito-advertising-http-api"
 )
 
 type AdvertPostgres struct {
@@ -17,7 +17,7 @@ func (a *AdvertPostgres) Create() error {
 	return nil
 }
 
-func (r *AdvertPostgres) GetById() error { //common.Advert, error
+func (a *AdvertPostgres) GetById() error { //common.Advert, error
 	return nil
 }
 
