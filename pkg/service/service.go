@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/p12s/avito-advertising-http-api"
 	"github.com/p12s/avito-advertising-http-api/pkg/repository"
 )
 
