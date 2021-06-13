@@ -13,7 +13,15 @@ func NewAdvertPostgres(db *sqlx.DB) *AdvertPostgres {
 	return &AdvertPostgres{db: db}
 }
 
+func (a *AdvertPostgres) Get() error {
+	return nil
+}
+
 func (a *AdvertPostgres) Create() error {
+	return nil
+}
+
+func (a *AdvertPostgres) GetByOrder() error { //common.Advert, error
 	return nil
 }
 

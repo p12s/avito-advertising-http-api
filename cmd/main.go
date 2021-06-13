@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"github.com/joho/godotenv"
-	common "github.com/p-12s/own-golang-manual/0-golang-test-assignment/wildberries/http-api"
 	"github.com/p12s/avito-advertising-http-api/pkg/handler"
 	"github.com/p12s/avito-advertising-http-api/pkg/repository"
 	"github.com/p12s/avito-advertising-http-api/pkg/service"

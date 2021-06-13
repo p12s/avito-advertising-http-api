@@ -5,6 +5,7 @@ import (
 )
 
 type Advert interface {
+	Get() error
 	Create() error     //int,
 	GetByOrder() error //[]common.Advert,
 	GetById() error    //common.Advert,
