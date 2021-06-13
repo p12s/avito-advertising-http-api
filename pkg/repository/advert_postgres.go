@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-	"github.com/p-12s/avito-advertising-http-api"
+	"github.com/p12s/avito-advertising-http-api"
 )
 
 type AdvertPostgres struct {

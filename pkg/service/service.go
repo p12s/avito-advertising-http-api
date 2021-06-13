@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/p-12s/avito-advertising-http-api"
-	"github.com/p-12s/avito-advertising-http-api/pkg/repository"
+	"github.com/p12s/avito-advertising-http-api"
+	"github.com/p12s/avito-advertising-http-api/pkg/repository"
 )
 
 type Advert interface {
