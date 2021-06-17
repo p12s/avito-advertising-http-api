@@ -1,3 +1,6 @@
+![License](https://img.shields.io/github/license/p12s/avito-advertising-http-api?style=plastic)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/p12s/avito-advertising-http-api?style=plastic)
+
 **Внимание:** *я не являюсь ни автором задания, ни даже сотрудником компании автора. Я просто нашел ее на просторах github-а и, для обучения и тренировки, попробовал решить ее в меру своего понимания.*
 
 # Тестовое задание для backend-стажёра в команду Advertising
