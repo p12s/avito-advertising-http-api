@@ -5,9 +5,10 @@ import (
 )
 
 type Photo struct {
-	Id       int    `json:"id" db:"id"`
-	IdAdvert int    `json:"id_advert" db:"id_advert"`
-	Url      string `json:"url" db:"url"`
+	Id        int    `json:"id" db:"id"`
+	IdAdvert  int    `json:"id_advert" db:"id_advert"`
+	Url       string `json:"url" db:"url"`
+	IsGeneral bool   `json:"is_general" db:"is_general"`
 }
 
 type Advert struct {

@@ -36,7 +36,10 @@ func (h *Handler) create(c *gin.Context) {
 	})
 }
 
+// Обязательные поля в ответе: название объявления, цена, ссылка на главное фото;
+// Опциональные поля (можно запросить, передав параметр fields): описание, ссылки на все фото.
 func (h *Handler) get(c *gin.Context) {
+
 	c.JSON(http.StatusNotImplemented, map[string]interface{}{
 		"id": 333,
 	})
