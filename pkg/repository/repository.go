@@ -6,12 +6,12 @@ import (
 )
 
 type Advert interface {
-	GetByOrder() (error)
-	GetById() (error)
-	Create() (error)
-	Get() (error)
-	Update() (error)
-	Delete() (error)
+	GetByOrder() error
+	GetById() error
+	Create() error
+	Get() error
+	Update() error
+	Delete() error
 }
 
 type Repository struct {

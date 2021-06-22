@@ -23,7 +23,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			advt.GET("/", h.getByOrder)
 			advt.POST("/", h.create)
 
-			item := advt.Group(":/id")
+			item := advt.Group(":id/item")
 			{
 				item.GET("/", h.get)
 				item.PUT("/", h.update)

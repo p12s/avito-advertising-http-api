@@ -21,7 +21,6 @@ func (a *AdvertService) GetById() error {
 	return a.repo.GetById()
 }
 
-
 func (a *AdvertService) Create() error {
 	return a.repo.Create()
 }
