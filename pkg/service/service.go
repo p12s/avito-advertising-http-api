@@ -7,9 +7,9 @@ import (
 
 type Advert interface {
 	Get() error
-	Create() error     //int,
+	Create() error //int,
 	GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error)
-	GetById() error    //common.Advert,
+	GetById() error //common.Advert,
 	Delete() error
 	Update() error
 }

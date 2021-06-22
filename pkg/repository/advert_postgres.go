@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	common "github.com/p12s/avito-advertising-http-api"
-
 	//"github.com/p12s/avito-advertising-http-api"
 )
 
