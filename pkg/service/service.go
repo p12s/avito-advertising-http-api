@@ -1,13 +1,14 @@
 package service
 
 import (
+	common "github.com/p12s/avito-advertising-http-api"
 	"github.com/p12s/avito-advertising-http-api/pkg/repository"
 )
 
 type Advert interface {
 	Get() error
 	Create() error     //int,
-	GetByOrder() error //[]common.Advert,
+	GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error)
 	GetById() error    //common.Advert,
 	Delete() error
 	Update() error

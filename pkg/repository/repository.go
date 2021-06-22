@@ -2,11 +2,11 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-	//"github.com/p12s/avito-advertising-http-api"
+	common "github.com/p12s/avito-advertising-http-api"
 )
 
 type Advert interface {
-	GetByOrder() error
+	GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error)
 	GetById() error
 	Create() error
 	Get() error
