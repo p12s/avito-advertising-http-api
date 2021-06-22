@@ -2,6 +2,7 @@ package service
 
 import (
 	//"github.com/p12s/avito-advertising-http-api"
+	common "github.com/p12s/avito-advertising-http-api"
 	"github.com/p12s/avito-advertising-http-api/pkg/repository"
 )
 
@@ -13,8 +14,8 @@ func NewAdvertService(repo repository.Advert) *AdvertService {
 	return &AdvertService{repo: repo}
 }
 
-func (a *AdvertService) GetByOrder() error {
-	return a.repo.GetByOrder()
+func (a *AdvertService) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error) {
+	return a.repo.GetByOrder(params, advertCount)
 }
 
 func (a *AdvertService) GetById() error {
