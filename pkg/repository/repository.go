@@ -6,10 +6,10 @@ import (
 )
 
 type Advert interface {
-	GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error)
+	GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertsListItem, error)
 	GetById() error
 	Create() error
-	Get() error
+	Get(advertId int, params common.AdvertFieldParams) (common.AdvertWithPhoto, error)
 	Update() error
 	Delete() error
 }

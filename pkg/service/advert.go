@@ -14,7 +14,7 @@ func NewAdvertService(repo repository.Advert) *AdvertService {
 	return &AdvertService{repo: repo}
 }
 
-func (a *AdvertService) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error) {
+func (a *AdvertService) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertsListItem, error) {
 	return a.repo.GetByOrder(params, advertCount)
 }
 
@@ -26,8 +26,8 @@ func (a *AdvertService) Create() error {
 	return a.repo.Create()
 }
 
-func (a *AdvertService) Get() error {
-	return a.repo.Get()
+func (a *AdvertService) Get(advertId int, params common.AdvertFieldParams) (common.AdvertWithPhoto, error) {
+	return a.repo.Get(advertId, params)
 }
 
 func (a *AdvertService) Update() error {

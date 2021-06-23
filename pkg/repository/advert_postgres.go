@@ -15,26 +15,51 @@ func NewAdvertPostgres(db *sqlx.DB) *AdvertPostgres {
 	return &AdvertPostgres{db: db}
 }
 
-func (a *AdvertPostgres) Get() error {
-	return nil
+func (a *AdvertPostgres) Get(advertId int, params common.AdvertFieldParams) (common.AdvertWithPhoto, error) {
+	// advert
+	queryPart := ""
+	if params.Fields.Description {
+		queryPart = ", a.description"
+	}
+	var item common.AdvertWithPhoto
+	query := fmt.Sprintf(`SELECT a.title, a.price %s FROM %s a LEFT JOIN %s ph ON a.id = ph.id_advert WHERE a.id = %d`,
+		queryPart, advertTable, photoTable, advertId)
+
+	if err := a.db.Get(&item, query); err != nil {
+		return common.AdvertWithPhoto{}, err
+	}
+
+	// photo
+	queryPart = "AND p.is_general IS TRUE"
+	if params.Fields.AllPhoto {
+		queryPart = "ORDER BY p.is_general DESC, p.id ASC"
+	}
+	query = fmt.Sprintf(`SELECT p.id, p.id_advert, p.url, p.is_general FROM %s p WHERE p.id_advert = %d %s`,
+		photoTable, advertId, queryPart)
+	if err := a.db.Select(&item.Photos, query); err != nil {
+		return common.AdvertWithPhoto{}, err
+	}
+
+	return item, nil
 }
 
 func (a *AdvertPostgres) Create() error {
 	return nil
 }
 
-func (a *AdvertPostgres) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertWithPhoto, error) {
+func (a *AdvertPostgres) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertsListItem, error) {
 	priceOrder := params.Price.String()
 	createdAtOrder := params.CreatedAt.String()
 	offset := params.Offset // 	TODO проверить на (> 0 && < MAX)
 
-	var items []common.AdvertWithPhoto
+	var items []common.AdvertsListItem
 	query := fmt.Sprintf(`SELECT DISTINCT ON (a.price, a.created_at) a.title, a.price, ph.url AS photo_url FROM %s a 
 		LEFT JOIN %s ph ON a.id = ph.id_advert
+		WHERE ph.is_general IS TRUE
 		ORDER BY a.price %s, a.created_at %s LIMIT %d OFFSET %d`,
 		advertTable, photoTable, priceOrder, createdAtOrder, advertCount, offset)
-
 	if err := a.db.Select(&items, query); err != nil {
+		fmt.Println(err)
 		return nil, err
 	}
 
