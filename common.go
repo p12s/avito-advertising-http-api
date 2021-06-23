@@ -52,7 +52,7 @@ type AdvertsListItem struct {
 	Description string    `json:"description,omitempty" db:"description"`
 	Price       float32   `json:"price" db:"price"`
 	CreatedAt   time.Time `json:"-" db:"created_at"`
-	PhotoUrl      string   `json:"photo_url,omitempty" db:"photo_url"` // адрес главного фото
+	PhotoUrl    string    `json:"photo_url,omitempty" db:"photo_url"` // адрес главного фото
 }
 
 // AdvertWithPhoto - возвращаемое клиенту 1 объявление
@@ -64,6 +64,7 @@ type AdvertWithPhoto struct {
 	CreatedAt   time.Time `json:"-" db:"created_at"`
 	Photos      []Photo   `json:"photos,omitempty" db:"photos"` // массив фото
 }
+
 // Validate - не больше 3 ссылок на объявление, название не больше 200 символов, описание не больше 1000 символов
 func (a AdvertWithPhoto) Validate() error {
 	if len(a.Title) > 200 {

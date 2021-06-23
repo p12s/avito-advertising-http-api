@@ -5,7 +5,6 @@ import (
 	"github.com/jmoiron/sqlx"
 	common "github.com/p12s/avito-advertising-http-api"
 	"time"
-
 	//"github.com/p12s/avito-advertising-http-api"
 )
 
@@ -56,7 +55,7 @@ func (a *AdvertPostgres) Create(advert common.AdvertWithPhoto) (int, error) {
 	row := tx.QueryRow(query, advert.Title, advert.Description, advert.Price, time.Now())
 	err = row.Scan(&itemId)
 	if err != nil {
-		tx.Rollback()
+		_ = tx.Rollback()
 		return 0, err
 	}
 
@@ -67,14 +66,14 @@ func (a *AdvertPostgres) Create(advert common.AdvertWithPhoto) (int, error) {
 			isGeneralStr = "TRUE"
 		}
 		values += fmt.Sprintf("(%d, '%s', %s)", itemId, val.Url, isGeneralStr)
-		if i < len(advert.Photos) - 1 {
+		if i < len(advert.Photos)-1 {
 			values += ","
 		}
 	}
 	createPhotosQuery := fmt.Sprintf("INSERT INTO %s (id_advert, url, is_general) values %s", photoTable, values)
 	_, err = tx.Exec(createPhotosQuery)
 	if err != nil {
-		tx.Rollback()
+		_ = tx.Rollback()
 		return 0, err
 	}
 

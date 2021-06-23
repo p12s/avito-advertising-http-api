@@ -17,7 +17,10 @@ import (
 
 func main() {
 	logger, _ := zap.NewProduction()
-	defer logger.Sync()
+	defer func() {
+		err := logger.Sync()
+		logger.Fatal("Error while call logger.Sync(): " + err.Error())
+	}()
 
 	if err := initConfig(); err != nil {
 		logger.Fatal("Error init config: " + err.Error())

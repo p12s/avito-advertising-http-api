@@ -8,10 +8,6 @@ import (
 	"strconv"
 )
 
-type getAllAdvertsResponse struct {
-	Data []common.Advert `json:"data"` // todo  возможно надо добавить фото-поля?
-}
-
 // getByOrder - получение списка объявлений
 // доступна сортировка по цене/дате создания и пагинация по 10 шт
 func (h *Handler) getByOrder(c *gin.Context) {
