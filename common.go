@@ -1,6 +1,7 @@
 package common
 
 import (
+	"errors"
 	"time"
 )
 
@@ -11,6 +12,7 @@ type Photo struct {
 	IsGeneral bool   `json:"is_general" db:"is_general"`
 }
 
+// Advert - рекламное объявление
 type Advert struct {
 	Id          int       `json:"-" db:"id"`
 	Title       string    `json:"title" db:"title"`
@@ -60,7 +62,20 @@ type AdvertWithPhoto struct {
 	Description string    `json:"description,omitempty" db:"description"`
 	Price       float32   `json:"price" db:"price"`
 	CreatedAt   time.Time `json:"-" db:"created_at"`
-	Photos      []Photo   `json:"photos,omitempty" db:"photos"` // массив фото, главное фото будет первым
+	Photos      []Photo   `json:"photos,omitempty" db:"photos"` // массив фото
+}
+// Validate - не больше 3 ссылок на объявление, название не больше 200 символов, описание не больше 1000 символов
+func (a AdvertWithPhoto) Validate() error {
+	if len(a.Title) > 200 {
+		return errors.New("title cannot be longer than 200 characters")
+	}
+	if len(a.Description) > 1000 {
+		return errors.New("description cannot be longer than 1000 characters")
+	}
+	if len(a.Photos) > 3 {
+		return errors.New("photos count cannot be more than 3")
+	}
+	return nil
 }
 
 // AdvertFieldParams - доплнительные передаваемые в запросе клиента поля

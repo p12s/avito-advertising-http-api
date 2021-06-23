@@ -22,8 +22,11 @@ func (a *AdvertService) GetById() error {
 	return a.repo.GetById()
 }
 
-func (a *AdvertService) Create() error {
-	return a.repo.Create()
+func (a *AdvertService) Create(advert common.AdvertWithPhoto) (int, error) {
+	if err := advert.Validate(); err != nil {
+		return 0, err
+	}
+	return a.repo.Create(advert)
 }
 
 func (a *AdvertService) Get(advertId int, params common.AdvertFieldParams) (common.AdvertWithPhoto, error) {

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	common "github.com/p12s/avito-advertising-http-api"
+	"time"
+
 	//"github.com/p12s/avito-advertising-http-api"
 )
 
@@ -43,8 +45,40 @@ func (a *AdvertPostgres) Get(advertId int, params common.AdvertFieldParams) (com
 	return item, nil
 }
 
-func (a *AdvertPostgres) Create() error {
-	return nil
+func (a *AdvertPostgres) Create(advert common.AdvertWithPhoto) (int, error) {
+	tx, err := a.db.Begin()
+	if err != nil {
+		return 0, err
+	}
+
+	var itemId int
+	query := fmt.Sprintf("INSERT INTO %s (title, description, price, created_at) values ($1, $2, $3, $4) RETURNING id", advertTable)
+	row := tx.QueryRow(query, advert.Title, advert.Description, advert.Price, time.Now())
+	err = row.Scan(&itemId)
+	if err != nil {
+		tx.Rollback()
+		return 0, err
+	}
+
+	values := ""
+	for i, val := range advert.Photos {
+		isGeneralStr := "FALSE"
+		if val.IsGeneral {
+			isGeneralStr = "TRUE"
+		}
+		values += fmt.Sprintf("(%d, '%s', %s)", itemId, val.Url, isGeneralStr)
+		if i < len(advert.Photos) - 1 {
+			values += ","
+		}
+	}
+	createPhotosQuery := fmt.Sprintf("INSERT INTO %s (id_advert, url, is_general) values %s", photoTable, values)
+	_, err = tx.Exec(createPhotosQuery)
+	if err != nil {
+		tx.Rollback()
+		return 0, err
+	}
+
+	return itemId, tx.Commit()
 }
 
 func (a *AdvertPostgres) GetByOrder(params common.AdvertSortOrderParams, advertCount int) ([]common.AdvertsListItem, error) {
