@@ -99,7 +99,7 @@ func (a *AdvertPostgres) GetByOrder(params common.AdvertSortOrderParams, advertC
 	return items, nil
 }
 
-func (a *AdvertPostgres) GetById() error { //common.Advert, error
+func (a *AdvertPostgres) GetById() error {
 	return nil
 }
 

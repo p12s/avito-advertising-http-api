@@ -8,8 +8,18 @@ import (
 	"strconv"
 )
 
-// getByOrder - получение списка объявлений
-// доступна сортировка по цене/дате создания и пагинация по 10 шт
+// @Summary GetByOrder
+// @Tags getByOrder
+// @Description getting ordered advert
+// @ID get-by-order
+// @Accept  json
+// @Produce  json
+// @Param input body common.AdvertSortOrderParams true "sort info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/advt/ [get]
 func (h *Handler) getByOrder(c *gin.Context) {
 	var input common.AdvertSortOrderParams
 	if err := c.BindJSON(&input); err != nil {
@@ -26,9 +36,18 @@ func (h *Handler) getByOrder(c *gin.Context) {
 	c.JSON(http.StatusOK, adverts)
 }
 
-// create - создание объявления
-// принимает поля: название, описание, цена, несколько ссылок на фотографии (сами фото не загружаем)
-// Возвращает ID созданного объявления и код результата (ошибка или успех)
+// @Summary Create
+// @Tags create
+// @Description create advert
+// @ID create
+// @Accept  json
+// @Produce  json
+// @Param input body common.AdvertWithPhoto true "advert info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/advt/ [post]
 func (h *Handler) create(c *gin.Context) {
 	var input common.AdvertWithPhoto
 	if err := c.BindJSON(&input); err != nil {
@@ -47,10 +66,19 @@ func (h *Handler) create(c *gin.Context) {
 	})
 }
 
-// get - получение конкретного объявления
-// обязательные поля в ответе клиенту: название объявления, цена, ссылка на главное фото;
-// опциональные поля (можно запросить, передав параметр fields): описание, ссылки на все фото.
-func (h *Handler) get(c *gin.Context) {
+// @Summary Get
+// @Tags get
+// @Description get advert
+// @ID get
+// @Accept  json
+// @Produce  json
+// @Param input body common.AdvertFieldParams true "field getting info"
+// @Success 200 {integer} integer 1
+// @Failure 400,404 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /api/advt/:id/item/ [get]
+func (h *Handler) get(c *gin.Context) { // получение конкретного объявления
 	advertId, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid advert id param")

@@ -79,10 +79,11 @@ func (a AdvertWithPhoto) Validate() error {
 	return nil
 }
 
+type Fields struct {
+	Description bool `json:"description" db:"description"` // включить в ответ описание, необязательное поле
+	AllPhoto    bool `json:"all_photo" db:"all_photo"`     // включить в ответ все фото, а не только главное, необязательное поле
+}
 // AdvertFieldParams - доплнительные передаваемые в запросе клиента поля
 type AdvertFieldParams struct {
-	Fields struct {
-		Description bool `json:"description" db:"description"` // включить в ответ описание, необязательное поле
-		AllPhoto    bool `json:"all_photo" db:"all_photo"`     // включить в ответ все фото, а не только главное, необязательное поле
-	}
+	Fields Fields
 }

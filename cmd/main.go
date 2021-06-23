@@ -15,6 +15,12 @@ import (
 	"syscall"
 )
 
+// @title Advertising HTTP API
+// @version 0.1
+// @description API Server for Advertising Application
+
+// @host localhost:80
+// @BasePath /
 func main() {
 	logger, _ := zap.NewProduction()
 	defer func() {
